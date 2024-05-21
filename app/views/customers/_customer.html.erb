@@ -1,0 +1,25 @@
+<div id="<%= dom_id customer %>">
+  <div >
+    <p>
+      <strong>Name:</strong>
+      <%= customer.name %>
+    </p>
+
+    <p>
+      <strong>Age:</strong>
+      <%= customer.age %>
+    </p>
+  </div>
+
+  <div class="customer-info">
+    <p>
+      <strong>Address:</strong>
+      <%= customer.address %>
+    </p>
+
+    <p>
+      <%= image_tag(url_for(customer.qrcode)) %>
+    </p>
+  </div>
+</div>
+
