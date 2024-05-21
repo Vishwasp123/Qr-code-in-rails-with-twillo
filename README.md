@@ -25,8 +25,12 @@ Blog: url:
 https://dev.to/chrissiku/generate-qr-code-with-active-storage-in-ruby-on-rails-7-1m8a
 
 <h4> Some Changer show only customer model  data  </h4>
-	<p>qr_data =  "Customer details: name: #{self.name}, age: #{self.age}, address: #{self.address} "
-		qrcode = RQRCode::QRCode.new(qr_data)</p>
+<p>qr_data =  "Customer details: name: #{self.name}, age: #{self.age}, address: #{self.address} "
+qrcode = RQRCode::QRCode.new(qr_data)
+add gem 
+gem "rqrcode"
+add gem for twillo impelmation 
+gem 'twilio-ruby'</p>
 
 
 * ...

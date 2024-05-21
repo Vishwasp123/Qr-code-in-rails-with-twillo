@@ -23,14 +23,11 @@ class CustomersController < ApplicationController
   def create
     @customer = Customer.new(customer_params)
 
-    respond_to do |format|
-      if @customer.save
-        format.html { redirect_to customer_url(@customer), notice: "Customer was successfully created." }
-        format.json { render :show, status: :created, location: @customer }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
-      end
+    if @customer.save
+      TwilioClient.new.send_text(@customer)
+      redirect_to customers_path, notice: "Customer was successfully created."
+    else
+      render :new, status: :unprocessable_entity 
     end
   end
 
@@ -65,6 +62,6 @@ class CustomersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def customer_params
-      params.require(:customer).permit(:name, :address, :age, :qrcode)
+      params.require(:customer).permit(:name, :address, :age, :qrcode, :phone_number)
     end
-end
+  end
