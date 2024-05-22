@@ -26,6 +26,7 @@ class CustomersController < ApplicationController
     if @customer.save
       debugger
       twilio_client = TwilioClient.new
+      # @customer.phone_number he 
       twilio_client.send_text(customer_params["phone_number"], "Hello, #{@customer.name}")
       redirect_to customers_path, notice: "Customer was successfully created."
     else
