@@ -3,28 +3,19 @@ class TwilioClient
 	attr_reader :client
 
 	def initialize
-   	 debugger
-   	 @client = Twilio::REST::Client.new(ENV["account_sid"], ENV["auth_token"])
-  	end
-
-
-	def send_text(customer)
-		@cliet.messages.create(
-			from: phone_number,
-			to: customer.phone_number,
-			body:  "Hello, #{customer.name}!"
-		)
+		@client = Twilio::REST::Client.new(ENV["account_sid"], ENV["auth_token"])
 	end
 
-	private
-	def account_sid
-		Rails.applicaiton.credentials.twilio[:account_sid]
-	end
-	def auth_token
-		Rails.applicaiton.credentials.twilio[:auth_token]
-	end
 
-	def phone_number
-		Rails.applicaiton.credentials.twilio[:phone_number]
+	def send_text(to, body)
+		begin
+		 message = @client.messages.create(
+			from: ENV["phone_number"],
+			to: to,
+			body: body
+			)
+		rescue StandardError => e
+			puts "An error occurred: #{e.message}"
+		end	
 	end
 end

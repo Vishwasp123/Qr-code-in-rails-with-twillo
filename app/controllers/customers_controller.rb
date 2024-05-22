@@ -24,7 +24,9 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_params)
 
     if @customer.save
-      TwilioClient.new.send_text(@customer)
+      debugger
+      twilio_client = TwilioClient.new
+      twilio_client.send_text(customer_params["phone_number"], "Hello, #{@customer.name}")
       redirect_to customers_path, notice: "Customer was successfully created."
     else
       render :new, status: :unprocessable_entity 
