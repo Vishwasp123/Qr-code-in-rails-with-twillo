@@ -25,6 +25,8 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
+        twilio_client = TwilioClient.new
+        twilio_client.send_call("+917649040881")
         format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
