@@ -1,12 +1,11 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: %i[ show edit update destroy ]
 
-  # GET /customers or /customers.json
   def index
     @customers = Customer.all
   end
 
-  # GET /customers/1 or /customers/1.json
+ 
   def show
   end
 
@@ -24,7 +23,6 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_params)
 
     if @customer.save
-      debugger
       twilio_client = TwilioClient.new
       # @customer.phone_number he 
       twilio_client.send_text(customer_params["phone_number"], "Hello, #{@customer.name}")
@@ -67,4 +65,4 @@ class CustomersController < ApplicationController
     def customer_params
       params.require(:customer).permit(:name, :address, :age, :qrcode, :phone_number)
     end
-  end
+end
